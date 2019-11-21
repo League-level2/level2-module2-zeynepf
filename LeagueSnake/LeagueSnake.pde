@@ -15,17 +15,17 @@ Segment(int x, int y){
 
 
 }
-
+}
 
 //*
 // ***** GAME VARIABLES *****
 // All the game variables that will be shared by the game methods are here
 //*
-int segment;
+Segment head;
 int foodX;
 int foodY;
-
-
+int direction = UP;
+int foodPieces = 0;
 
 
 //*
@@ -35,11 +35,15 @@ int foodY;
 
 void setup() {
 size(500,500);
+head = new Segment(90, 80);
+frameRate(20);
+dropFood();
 }
 
 void dropFood() {
   //Set the food in a new random location
-    
+    foodX = ((int)random(50)*10);
+    foodY = ((int)random(50)*10);
 }
 
 
@@ -50,16 +54,20 @@ void dropFood() {
 //*
 
 void draw() {
-  
+  background(254, 255, 105);
+  drawFood();
+  drawSnake();
 }
 
 void drawFood() {
-  //Draw the food
+  fill(101, 225, 255);
+  rect(foodX, foodY, 10, 10);
   
 }
 
 void drawSnake() {
-  //Draw the head of the snake followed by its tail
+  fill(102, 255, 102);
+rect(head.x, head.y, 10, 10);
 }
 
 
