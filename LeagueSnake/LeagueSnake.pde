@@ -107,7 +107,7 @@ void keyPressed() {
 void move() {
   //Change the location of the Snake head based on the direction it is moving.
   
-    /*
+    
   switch(direction) {
   case UP:
     // move head up here 
@@ -122,12 +122,12 @@ void move() {
     // mystery code goes here 
     break;
   }
-  */
+  
 }
 
 void checkBoundaries() {
  //If the snake leaves the frame, make it reappear on the other side
- 
+
 }
 
 
