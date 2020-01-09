@@ -56,6 +56,7 @@ void dropFood() {
 void draw() {
   background(254, 255, 105);
   drawFood();
+  move();
   drawSnake();
 }
 
@@ -101,7 +102,20 @@ void checkTailCollision() {
 
 void keyPressed() {
   //Set the direction of the snake according to the arrow keys pressed
-  
+  if (key == CODED) {
+    if (keyCode == UP&&direction!=DOWN) {
+      direction=UP;
+    }
+    else if(keyCode == DOWN&&direction!=UP){
+      direction=DOWN;
+    }
+    else if(keyCode ==LEFT&&direction!=RIGHT){
+      direction= LEFT;
+    }
+    else if(keyCode == RIGHT&&direction!=LEFT){
+      direction= RIGHT;
+    }
+  }
 }
 
 void move() {
@@ -110,24 +124,34 @@ void move() {
     
   switch(direction) {
   case UP:
-    // move head up here 
+    head.y-=5;
     break;
   case DOWN:
-    // move head down here 
+    head.y+=5;
     break;
   case LEFT:
-   // figure it out 
+   head.x-=5;
     break;
   case RIGHT:
-    // mystery code goes here 
+    head.x+=5;
     break;
   }
-  
+  checkBoundaries();
 }
 
 void checkBoundaries() {
- //If the snake leaves the frame, make it reappear on the other side
-
+ if(direction==UP&&head.y==0){
+   head.y= height;
+ }
+   else if(direction==DOWN&&head.y==height){
+     head.y=0;
+   }
+   else if(direction==LEFT&&head.x==0){
+     head.x= width;
+   }
+   else if(direction==RIGHT&&head.x==width){
+     head.x= 0;
+   }
 }
 
 
