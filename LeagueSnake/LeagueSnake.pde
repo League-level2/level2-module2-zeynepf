@@ -36,7 +36,7 @@ ArrayList<Segment> tail = new ArrayList<Segment>();
 void setup() {
 size(500,500);
 head = new Segment(90, 80);
-frameRate(20);
+frameRate(15);
 dropFood();
 }
 
@@ -70,6 +70,7 @@ void drawFood() {
 void drawSnake() {
   fill(102, 255, 102);
 rect(head.x, head.y, 10, 10);
+manageTail();
 }
 
 
@@ -98,7 +99,13 @@ void manageTail() {
 
 void checkTailCollision() {
   //If the snake crosses its own tail, shrink the tail back to one segment
-  foodPieces=0;
+  for(int i = 0; i < tail.size(); i++){
+ if(tail.get(i).y==head.y&&tail.get(i).x==head.x){
+   foodPieces= 0;
+   tail.clear();
+   tail.add(new Segment(head.x, head.y));
+ }
+  }
 }
 
 
@@ -132,32 +139,32 @@ void move() {
     
   switch(direction) {
   case UP:
-    head.y-=5;
+    head.y-=10;
     break;
   case DOWN:
-    head.y+=5;
+    head.y+=10;
     break;
   case LEFT:
-   head.x-=5;
+   head.x-=10;
     break;
   case RIGHT:
-    head.x+=5;
+    head.x+=10;
     break;
   }
   checkBoundaries();
 }
 
 void checkBoundaries() {
- if(direction==UP&&head.y==0){
+ if(direction==UP&&head.y<0){
    head.y= height;
  }
-   else if(direction==DOWN&&head.y==height){
+   else if(direction==DOWN&&head.y>=height){
      head.y=0;
    }
-   else if(direction==LEFT&&head.x==0){
+   else if(direction==LEFT&&head.x<0){
      head.x= width;
    }
-   else if(direction==RIGHT&&head.x==width){
+   else if(direction==RIGHT&&head.x>=width){
      head.x= 0;
    }
 }
@@ -169,5 +176,6 @@ void eat() {
 if(head.y==foodY&&head.x==foodX){
   foodPieces+=1;
   dropFood();
+   tail.add(new Segment(head.x, head.y));
 }
 }
